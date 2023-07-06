@@ -1,0 +1,152 @@
+{
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "exclusive": true,
+    "passtrough": false,
+    "gtk-layer-shell": true,
+    "height": 20,
+    "spacing": 0,
+    "modules-left": [
+        // "custom/power_btn",
+        // "custom/lock_screen",
+        "wlr/workspaces"
+    ],
+    "modules-center": [
+        "clock"
+        // "idle_inhibitor",
+        // "custom/updates"
+    ],
+    "modules-right": [
+        "cpu",
+        // "pulseaudio",
+        // "pulseaudio#microphone",
+        "tray"
+        // "custom/power_profile",
+        // "battery",
+        // "custom/notification",
+    ],
+
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "󰛐",
+            "deactivated": "󰛑"
+        },
+        "tooltip": true
+    },
+
+    "custom/power_btn": {
+        "format": "",
+        "on-click": "sh -c '(sleep 0.1; wlogout --protocol layer-shell -b 5 -T 400 -B 400)' & disown",
+        "tooltip": false
+    },
+
+    "custom/lock_screen": {
+        "format": "",
+        "on-click": "sh -c '(sleep 0.1; ~/.config/scripts/lock)' & disown ",
+
+        "tooltip": false
+    },
+
+    "wlr/workspaces": {
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1",
+        "all-outputs": true,
+        "on-click": "activate",
+        "persistent_workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": [],
+            "6": [],
+            "7": [],
+            "8": [],
+            "9": [],
+            "10": []
+          }
+    },
+
+    "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "<span foreground='red'><sup></sup></span>",
+            "none": "",
+            "dnd-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-none": "",
+            "inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "inhibited-none": "",
+            "dnd-inhibited-notification": "<span foreground='red'><sup></sup></span>",
+            "dnd-inhibited-none": ""
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "sleep 0.2; swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
+
+	"clock": {
+		"format": "{:%a %d %H:%M}",
+		"tooltip": "false",
+	},
+
+    "tray": {
+        "icon-size": 13,
+        "spacing": 10
+    },
+
+    "cpu": {
+        "interval": 10,
+        "format": "",
+        "max-length": 10,
+        "format-alt-click": "click-right",
+        "format-alt": " {usage}%",
+        "on-click": "hyprctl dispatch exec [float] wezterm start btop"
+    },
+
+    "custom/updates": {
+        "format": "{}",
+        "exec": "~/.config/scripts/waybarScripts/update-sys",
+        "on-click": "~/.config/scripts/waybarScripts/update-sys update",
+        "interval": "once",
+        "signal": 8,
+        "tooltip": true
+    },
+
+    "pulseaudio": {
+        "format": "{icon}",
+        "tooltip": false,
+        "format-muted": "",
+        "on-click": "~/.config/scripts/waybarScripts/volume --toggle",
+        "on-scroll-up": "~/.config/scripts/waybarScripts/volume --inc",
+        "on-scroll-down": "~/.config/scripts/waybarScripts/volume --dec",
+        "format-bluetooth": "{icon}",
+        "format-bluetooth-muted": "{icon}",
+        "scroll-step": 5,
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        }
+    },
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "tooltip": false,
+        "format-source": "",
+        "format-source-muted": "",
+        "on-click": "~/.config/scripts/waybarScripts/volume --toggle-mic",
+        "on-scroll-up": "~/.config/scripts/waybarScripts/volume --mic-inc",
+        "on-scroll-down": "~/.config/scripts/waybarScripts/volume --mic-dec",
+        "scroll-step": 5
+    }
+}
+
+    
